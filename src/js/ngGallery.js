@@ -36,6 +36,7 @@ angular.module('jkuri.gallery', [])
 			'</div>' +
 			'<div class="ng-overlay" ng-show="opened">' +
 			'</div>' +
+			'<div ng-show="images.length == 0" style="position: absolute;top:100px;left:100px;font-size: larger">Image not found</div>' +
 			'<div class="ng-gallery-content" ng-show="opened">' +
 			'  <div class="uil-ring-css" ng-show="loading"><div></div></div>' +
 			'  <a class="edit-popup" ng-click="edit()"><i class="fa fa-edit"></i></a>' +
