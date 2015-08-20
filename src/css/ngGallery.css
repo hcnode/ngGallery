@@ -63,6 +63,18 @@ img.ng-thumb {
     float: right;
     color: #fff;
     text-decoration: none;
+    margin: 0 80px 0 0;
+    cursor: pointer;
+    position: absolute;
+    top: 28px;
+    z-index: 999;
+    right: 0;
+}
+.ng-gallery-content > a.edit-popup {
+    font-size: 32px;
+    float: right;
+    color: #fff;
+    text-decoration: none;
     margin: 0 130px 0 0;
     cursor: pointer;
     position: absolute;

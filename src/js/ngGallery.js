@@ -26,7 +26,7 @@ angular.module('jkuri.gallery', [])
 		// Set the default template
 		$templateCache.put(template_url,
 			'<div class="{{ baseClass }}">' +
-			'	<div>' +
+			'	<div ng-show="images.length > 0">' +
 			'		<i class="fa fa-th fa-3x" style="margin-right: 10px;" ng-click="setNormalPreview()"></i>' +
 			'		<i class="fa fa-th-large fa-3x" ng-click="setLargePreview()"></i>' +
 			'	</div>' +
@@ -38,8 +38,9 @@ angular.module('jkuri.gallery', [])
 			'</div>' +
 			'<div class="ng-gallery-content" ng-show="opened">' +
 			'  <div class="uil-ring-css" ng-show="loading"><div></div></div>' +
-			'  <a class="compress-popup" ng-click="compress()"><i class="fa fa-compress"></i></a>' +
-			'  <a class="expand-popup" ng-click="expand()"><i class="fa fa-expand"></i></a>' +
+			'  <a class="edit-popup" ng-click="edit()"><i class="fa fa-edit"></i></a>' +
+			'  <a class="compress-popup" ng-click="compress()" ng-show="imgExpand"><i class="fa fa-compress"></i></a>' +
+			'  <a class="expand-popup" ng-click="expand()" ng-show="!imgExpand"><i class="fa fa-expand"></i></a>' +
 			'  <a class="close-popup" ng-click="closeGallery()"><i class="fa fa-close"></i></a>' +
 			'  <a class="nav-left" ng-click="prevImage()"><i class="fa fa-angle-left"></i></a>' +
 			'  <div style="height: 630px;overflow: scroll"><img ng-src="{{ img }}" ng-click="nextImage()" ng-show="!loading" class="effect" style="{{ imgExpand }}" /></div>' +
@@ -159,6 +160,9 @@ angular.module('jkuri.gallery', [])
 				};
 				scope.compress = function(){
 					scope.imgExpand = "";
+				};
+				scope.edit = function(){
+					window.open("editor.html?image=" + encodeURIComponent(scope.img));
 				};
 				scope.setNormalPreview = function () {
 					scope.thumbSize = "";
