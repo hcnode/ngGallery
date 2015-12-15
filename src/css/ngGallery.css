@@ -279,3 +279,7 @@ uiload > div {
     -o-animation: uil-ring-anim 1s linear infinite;
     animation: uil-ring-anim 1s linear infinite;
 }
+
+.bgaqua {
+    background: darkblue;
+}

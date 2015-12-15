@@ -31,7 +31,7 @@ angular.module('jkuri.gallery', [])
 			'		<i class="fa fa-th-large fa-3x" ng-click="setLargePreview()"></i>' +
 			'	</div>' +
 			'  <div ng-repeat="i in images">' +
-			'    <img ng-src="{{ i.thumb }}" class="{{ thumbClass }}" style="{{ thumbSize }}" ng-click="openGallery($index)" alt="Image {{ $index + 1 }}" />' +
+			'    <img ng-src="{{ i.thumb }}" ng-class="getClass($index)" style="{{ thumbSize }}" ng-click="openGallery($index)" alt="Image {{ $index + 1 }}" />' +
 			'  </div>' +
 			'</div>' +
 			'<div class="ng-overlay" ng-show="opened">' +
@@ -61,7 +61,8 @@ angular.module('jkuri.gallery', [])
 			restrict: 'EA',
 			scope: {
 				images: '=',
-				thumbsNum: '@'
+				thumbsNum: '@',
+				selectMode: '@'
 			},
 			templateUrl: function(element, attrs) {
 				return attrs.templateUrl || defaults.templateUrl;
@@ -82,7 +83,26 @@ angular.module('jkuri.gallery', [])
 
 				scope.thumb_wrapper_width = 0;
 				scope.thumbs_width = 0;
+				scope.selectedItems = {};
 
+				scope.$on("selectMode",
+					function (event, msg) {
+						scope.selectMode = msg;
+					});
+
+				scope.$on("getSelectFile",
+					function (event, msg) {
+						scope.$emit("saveSelectFile", scope.selectedItems);
+					});
+
+				scope.getClass = function (i) {
+					var cls = scope.thumbClass;
+					var img = scope.images[i].img;
+					if(scope.selectedItems[img]){
+						cls += ' bgaqua';
+					}
+					return cls;
+				};
 				var loadImage = function (i) {
 					var deferred = $q.defer();
 					var image = new Image();
@@ -138,19 +158,23 @@ angular.module('jkuri.gallery', [])
 				};
 
 				scope.openGallery = function (i) {
-					if (typeof i !== undefined) {
-						scope.index = i;
-						showImage(scope.index);
-					}
-					scope.opened = true;
+					if(scope.selectMode){
+						scope.selectedItems[scope.images[i].img] = !scope.selectedItems[scope.images[i].img];
+					}else {
+						if (typeof i !== undefined) {
+							scope.index = i;
+							showImage(scope.index);
+						}
+						scope.opened = true;
 
-					$timeout(function() {
-						var calculatedWidth = calculateThumbsWidth();
-						scope.thumbs_width = calculatedWidth.width;
-						$thumbnails.css({ width: calculatedWidth.width + 'px' });
-						$thumbwrapper.css({ width: calculatedWidth.visible_width + 'px' });
-						smartScroll(scope.index);
-					});
+						$timeout(function () {
+							var calculatedWidth = calculateThumbsWidth();
+							scope.thumbs_width = calculatedWidth.width;
+							$thumbnails.css({width: calculatedWidth.width + 'px'});
+							$thumbwrapper.css({width: calculatedWidth.visible_width + 'px'});
+							smartScroll(scope.index);
+						});
+					}
 				};
 
 				scope.closeGallery = function () {
