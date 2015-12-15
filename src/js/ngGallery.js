@@ -39,7 +39,7 @@ angular.module('jkuri.gallery', [])
 			'<div ng-show="images.length == 0" style="position: absolute;top:100px;left:100px;font-size: larger">Image not found</div>' +
 			'<div class="ng-gallery-content" ng-show="opened">' +
 			'  <div class="uil-ring-css" ng-show="loading"><div></div></div>' +
-			'  <a class="edit-popup" ng-click="edit()"><i class="fa fa-edit"></i></a>' +
+			'  <a class="edit-popup" ng-click="edit()" ng-show="editShow"><i class="fa fa-edit"></i></a>' +
 			'  <a class="compress-popup" ng-click="compress()" ng-show="imgExpand"><i class="fa fa-compress"></i></a>' +
 			'  <a class="expand-popup" ng-click="expand()" ng-show="!imgExpand"><i class="fa fa-expand"></i></a>' +
 			'  <a class="close-popup" ng-click="closeGallery()"><i class="fa fa-close"></i></a>' +
@@ -62,7 +62,8 @@ angular.module('jkuri.gallery', [])
 			scope: {
 				images: '=',
 				thumbsNum: '@',
-				selectMode: '@'
+				selectMode: '@',
+				editShow:'@'
 			},
 			templateUrl: function(element, attrs) {
 				return attrs.templateUrl || defaults.templateUrl;
