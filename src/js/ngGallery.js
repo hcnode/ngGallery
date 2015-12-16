@@ -31,7 +31,7 @@ angular.module('jkuri.gallery', [])
 			'		<i class="fa fa-th-large fa-3x" ng-click="setLargePreview()"></i>' +
 			'	</div>' +
 			'  <div ng-repeat="i in images">' +
-			'    <img ng-src="{{ i.thumb }}" ng-class="getClass($index)" style="{{ thumbSize }}" ng-click="openGallery($index)" alt="Image {{ $index + 1 }}" />' +
+			'    <img ng-src="{{ i.thumb }}" ng-class="getClass($index)" style="{{ thumbSize }}" onload="if(window.ngGalleryImageOnload)window.ngGalleryImageOnload(this)" ng-click="openGallery($index)" alt="Image {{ $index + 1 }}" />' +
 			'  </div>' +
 			'</div>' +
 			'<div class="ng-overlay" ng-show="opened">' +
