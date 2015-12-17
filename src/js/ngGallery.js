@@ -236,7 +236,7 @@ angular.module('jkuri.gallery', [])
 							s = Math.ceil(len / i);
 
 						$thumbwrapper[0].scrollLeft = 0;
-						$thumbwrapper[0].scrollLeft = i * item_scroll /*- (s * item_scroll)*/;
+						$thumbwrapper[0].scrollLeft = i * item_scroll - (s * item_scroll);
 					}, 100);
 				};
 
